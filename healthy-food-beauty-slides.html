@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>อาหารเพื่อสุขภาพและความงาม</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#40362F;--a:#C89B6D;--soft:#F8F4EF;--line:#EADFD2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--soft);font-family:'Google Sans','Noto Sans Thai',system-ui,sans-serif;color:var(--p);display:flex;align-items:center;justify-content:center;padding-bottom:64px;overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- stage 16:9 ---------- */
+.stage{position:relative;width:min(96vw,calc((100dvh - 84px) * 16 / 9));aspect-ratio:16/9;container-type:size}
+.slide{position:absolute;inset:0;background:#fff;border-radius:2.4cqw;box-shadow:0 .4cqw 2cqw rgba(64,54,47,.10),0 .1cqw .3cqw rgba(64,54,47,.06);overflow:hidden;display:none;flex-direction:column;padding:4.2cqw 4.6cqw 5.8cqw}
+.slide.active{display:flex}
+.slide::before{content:"";position:absolute;width:30cqw;height:30cqw;border-radius:50%;background:var(--soft);right:-9cqw;top:-12cqw}
+.slide>*{position:relative}
+
+.tag{position:absolute;left:4.6cqw;top:3.6cqw;display:inline-flex;align-items:center;gap:.6cqw;padding:.55cqw 1.5cqw;border-radius:99px;background:var(--soft);border:1px solid var(--line);font-size:1.25cqw;font-weight:700;z-index:2}
+.tag::before{content:"";width:.7cqw;height:.7cqw;border-radius:50%;background:var(--a)}
+.pg{position:absolute;right:4.6cqw;bottom:2.2cqw;font-size:1.3cqw;font-weight:800;padding:.4cqw 1.3cqw;border-radius:99px;background:var(--soft);border:1px solid var(--line)}
+.pg span{font-weight:500;opacity:.55}
+.brand{position:absolute;left:4.6cqw;bottom:2.5cqw;font-size:1.1cqw;font-weight:500;opacity:.55}
+
+/* ---------- type ---------- */
+h1,h2{font-weight:800;line-height:1.35;letter-spacing:-.01em}
+h2{font-size:3.5cqw}
+.grad{background:linear-gradient(100deg,#C89B6D 0%,#8A6240 55%,#40362F 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.sub{font-size:1.7cqw;line-height:1.55;color:rgba(64,54,47,.72);margin-top:.5cqw}
+
+/* ---------- icons ---------- */
+.ic{display:grid;place-items:center;flex:none;width:var(--s,5cqw);height:var(--s,5cqw);border-radius:50%;background:var(--cc,var(--p));transition:transform .25s cubic-bezier(.2,.8,.2,1);box-shadow:0 .3cqw .8cqw rgba(64,54,47,.18)}
+.ic svg{width:52%;height:52%;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ic:hover{transform:scale(1.14)}
+
+/* ---------- shades ---------- */
+.d{background:var(--p);color:#fff;--cc:var(--a)}
+.d p{color:rgba(255,255,255,.85)}
+.m{background:var(--a);color:var(--p)}
+.m p{color:rgba(64,54,47,.92)}
+.l{background:var(--soft);border:1px solid var(--line)}
+.l p{color:rgba(64,54,47,.8)}
+.n{position:absolute;right:1.8cqw;top:1.4cqw;font-size:1.8cqw;font-weight:800;opacity:.3}
+
+/* ---------- cards layout ---------- */
+.hd{margin-top:5cqw;display:flex;align-items:center;justify-content:space-between;gap:3cqw}
+.hd .ic{--s:8.4cqw}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;margin-top:2.8cqw;flex:1;min-height:0}
+.card{position:relative;border-radius:1.8cqw;padding:2.3cqw 2.2cqw;display:flex;flex-direction:column;gap:1cqw}
+.card .ic{--s:5.6cqw}
+.card h3{font-size:2.15cqw;font-weight:800;line-height:1.35;margin-top:.8cqw}
+.card p{font-size:1.65cqw;line-height:1.55}
+
+/* ---------- rows layout ---------- */
+.rl{flex:1;display:grid;grid-template-columns:36fr 64fr;gap:3cqw;margin-top:5cqw;min-height:0}
+.left{display:flex;flex-direction:column;min-height:0}
+.left h2{font-size:3.2cqw}
+.panel{margin-top:2.2cqw;flex:1;min-height:0;border-radius:1.8cqw;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;position:relative;overflow:hidden}
+.panel::before{content:"";position:absolute;width:19cqw;height:19cqw;border-radius:50%;border:.25cqw dashed var(--a);opacity:.7}
+.panel .ic{--s:9.5cqw;position:relative}
+.panel svg.plate{height:90%;width:auto;position:relative}
+.right{display:flex;flex-direction:column;gap:1.8cqw;min-height:0}
+.row{flex:1;position:relative;border-radius:1.8cqw;padding:1.4cqw 2.4cqw;display:flex;align-items:center;gap:2cqw;min-height:0}
+.row .ic{--s:6cqw}
+.row h3{font-size:2cqw;font-weight:800;line-height:1.35}
+.row p{font-size:1.6cqw;line-height:1.5;margin-top:.2cqw}
+
+/* ---------- cover ---------- */
+.slide.cover.active{display:grid;grid-template-columns:57fr 43fr;gap:2cqw;align-items:center}
+.cover::before{width:44cqw;height:44cqw;right:-12cqw;top:-16cqw}
+.cover h1{font-size:5.2cqw;line-height:1.3}
+.cover .lead{font-size:2cqw;line-height:1.55;color:rgba(64,54,47,.75);margin-top:1.4cqw}
+.who{display:flex;align-items:center;gap:1.6cqw;margin-top:3.4cqw}
+.who .ic{--s:6cqw}
+.who small{display:block;font-size:1.3cqw;opacity:.65}
+.who b{font-size:2.1cqw;font-weight:800}
+.chip{display:inline-block;margin-top:2cqw;padding:.8cqw 1.8cqw;border-radius:99px;background:var(--p);color:#fff;font-size:1.4cqw;font-weight:600}
+.art{position:relative;width:100%;aspect-ratio:1;max-height:44cqw;justify-self:center}
+.art .ring{position:absolute;left:50%;top:50%;width:76%;height:76%;transform:translate(-50%,-50%);border-radius:50%;border:.28cqw dashed var(--a)}
+.art .ic{position:absolute}
+.art .big{--s:19cqw;left:50%;top:50%;margin:-9.5cqw 0 0 -9.5cqw}
+.art .s1{--s:9cqw;--cc:var(--a);left:6%;top:8%}
+.art .s2{--s:8cqw;right:6%;top:12%}
+.art .s3{--s:8.4cqw;--cc:var(--a);left:2%;bottom:14%}
+.art .s4{--s:9cqw;right:4%;bottom:8%}
+
+/* ---------- animation ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(3.2cqw)}to{opacity:1;transform:none}}
+.slide.active .rise{animation:rise .65s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * .13s + .05s)}
+@media (prefers-reduced-motion:reduce){.slide.active .rise{animation:none}}
+
+/* ---------- nav ---------- */
+.bar{position:fixed;left:0;top:0;height:4px;background:linear-gradient(90deg,#C89B6D,#40362F);transition:width .35s;z-index:5}
+.nav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 10px;box-shadow:0 4px 18px rgba(64,54,47,.12);z-index:5}
+.nav button{width:38px;height:38px;border-radius:50%;border:0;background:var(--p);color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;transition:transform .2s,opacity .2s;font-family:inherit}
+.nav button:hover{transform:scale(1.1)}
+.nav button:disabled{opacity:.3;cursor:default;transform:none}
+.nav button.fs{background:var(--soft);color:var(--p);border:1px solid var(--line);font-size:15px}
+.nav .cnt{min-width:64px;text-align:center;font-weight:700;font-size:14px}
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<main class="stage" id="stage"></main>
+<nav class="nav" aria-label="ควบคุมสไลด์">
+  <button id="prev" aria-label="หน้าก่อนหน้า">&#8592;</button>
+  <span class="cnt" id="cnt">1 / 20</span>
+  <button id="next" aria-label="หน้าถัดไป">&#8594;</button>
+  <button class="fs" id="fs" aria-label="เต็มหน้าจอ">&#9974;</button>
+</nav>
+
+<script>
+const IC={
+leaf:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.8 14.52 12 13 13 12"/>',
+apple:'<path d="M12 7.5C10.5 6 8 5.5 6 7c-2.5 2-2 6 0 9.5 1.3 2.3 2.8 3.5 4.2 3.5.7 0 1.2-.4 1.8-.4s1.1.4 1.8.4c1.4 0 2.9-1.2 4.2-3.5 2-3.5 2.5-7.5 0-9.5-2-1.5-4.5-1-6 .5z"/><path d="M12 7.5c0-2 .8-3.8 2.5-5"/>',
+sparkles:'<path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.13-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.13a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.13 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.13a.5.5 0 0 1-.96 0z"/><path d="M20 3v4M22 5h-4M4 17v2M5 18H3"/>',
+heart:'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+drop:'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+x:'<path d="M18 6 6 18M6 6l12 12"/>',
+flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+star:'<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+cup:'<path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/>',
+utensils:'<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+layers:'<path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>',
+smile:'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>',
+book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'
+};
+const ic=(n,style='',cls='')=>`<span class="ic ${cls}" style="${style}"><svg viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg></span>`;
+
+/* ---------- เนื้อหา 20 หน้า ---------- */
+const BRAND='อาหารเพื่อสุขภาพและความงาม · อ.นพมาศ ร่มเกตุ';
+const D=[
+{lay:'cover',tag:'ยินดีต้อนรับ'},
+{lay:'cards',tag:'เกริ่นนำ',icon:'book',t:['วันนี้เราจะ','คุยอะไรกัน'],sub:'สามเรื่องหลักที่เอาไปใช้ได้ทันที',
+ items:[['utensils','กินอย่างไรให้ดี','หลักง่ายๆ ของอาหารสุขภาพ และสารอาหารที่ร่างกายต้องการ'],
+        ['sparkles','กินสวยจากข้างใน','อาหารที่ช่วยดูแลผิว ผม เล็บ และอาหารที่ควรลด'],
+        ['target','เอาไปใช้จริง','จัดจานสุขภาพ เมนูประหยัดสไตล์นักศึกษา และชาเลนจ์ 7 วัน']]},
+{lay:'rows',tag:'ทำไมต้องสนใจ',icon:'heart',t:['คุณคือ','สิ่งที่คุณกิน'],sub:'ชีวิตมหาวิทยาลัยเปลี่ยนไป อาหารก็เปลี่ยนตามไปด้วย',
+ items:[['clock','อยู่หอ เรียนยาว นอนดึก','มื้อเช้าหาย มื้อดึกมา ร่างกายเลยปรับตัวไม่ทัน'],
+        ['heart','สุขภาพเริ่มจากจาน','อาหารมีผลต่อพลังงาน สมาธิ อารมณ์ และภูมิต้านทาน'],
+        ['sparkles','ความงามก็เหมือนกัน','ผิว ผม เล็บ สร้างจากสารอาหารที่เรากินทุกวัน']]},
+{lay:'cards',tag:'พื้นฐาน',icon:'leaf',t:['อาหารเพื่อสุขภาพ','คืออะไร'],sub:'ไม่ต้องกินคลีนทุกมื้อ แค่ยึด 3 หลักนี้ก็พอ',
+ items:[['layers','ครบ 5 หมู่','เนื้อสัตว์ ถั่ว ไข่ นม ข้าว-แป้ง ผัก ผลไม้ และไขมัน ให้ครบทุกวัน'],
+        ['target','พอดี','กินตามที่ร่างกายต้องการ ไม่น้อยเกินไป ไม่มากเกินไป'],
+        ['star','หลากหลาย','เปลี่ยนเมนูไปเรื่อยๆ ได้สารอาหารหลายชนิด และไม่เบื่อด้วย']]},
+{lay:'cards',tag:'สารอาหาร',icon:'layers',t:['สารอาหารหลัก','มีอะไรบ้าง'],sub:'ร่างกายเราต้องการสารอาหารสามกลุ่มใหญ่',
+ items:[['zap','สารอาหารให้พลังงาน','คาร์โบไฮเดรต โปรตีน ไขมัน คือเชื้อเพลิงและวัตถุดิบของร่างกาย'],
+        ['shield','วิตามินและแร่ธาตุ','ใช้น้อยแต่ขาดไม่ได้ ช่วยให้ระบบต่างๆ ทำงานได้ดี'],
+        ['drop','น้ำและใยอาหาร','ช่วยเรื่องขับถ่ายและการดูดซึม ตัวช่วยที่คนมักลืม']]},
+{lay:'rows',tag:'คาร์โบไฮเดรต',icon:'zap',t:['คาร์บ คือ','พลังงานของสมอง'],sub:'เลือกชนิดให้ดี ไม่ต้องกลัวแป้ง',
+ items:[['zap','สมองใช้กลูโคสเป็นพลังงานหลัก','อดแป้งนานๆ มักทำให้เพลียและสมาธิหลุด'],
+        ['layers','เลือกคาร์บเชิงซ้อน','ข้าวกล้อง ข้าวโอ๊ต ขนมปังโฮลวีต อิ่มนาน น้ำตาลไม่พุ่งเร็ว'],
+        ['x','ลดคาร์บเชิงเดี่ยว','ชานมไข่มุก น้ำหวาน ขนมหวาน พลังงานสูงแต่สารอาหารน้อย']]},
+{lay:'rows',tag:'โปรตีน',icon:'shield',t:['โปรตีน คือ','วัสดุซ่อมสร้าง'],sub:'กล้ามเนื้อ ผิว ผม เล็บ ล้วนมีโปรตีนเป็นส่วนประกอบ',
+ items:[['shield','ซ่อมแซมและสร้างเซลล์','ร่างกายนำกรดอะมิโนไปสร้างเนื้อเยื่อทุกส่วน รวมถึงผิวหนัง'],
+        ['star','แหล่งโปรตีนที่หาง่าย','ไข่ ปลา อกไก่ เต้าหู้ ถั่วต่างๆ ราคาไม่แพง'],
+        ['target','กระจายไปทุกมื้อ','กินโปรตีนทุกมื้อ ร่างกายนำไปใช้ได้ต่อเนื่องกว่ากินมื้อเดียว']]},
+{lay:'cards',tag:'ไขมัน',icon:'heart',t:['ไขมันดี','ผิวชุ่มชื้น'],sub:'ไขมันไม่ใช่ผู้ร้าย ถ้าเลือกชนิดให้ถูก',
+ items:[['heart','โอเมก้า 3','ปลาทู ปลาทะเล วอลนัท ช่วยลดการอักเสบ ดีต่อหัวใจและสมอง'],
+        ['leaf','ไขมันไม่อิ่มตัว','อะโวคาโด ถั่ว น้ำมันมะกอก ดีต่อหัวใจ และช่วยดูดซึมวิตามิน A D E K'],
+        ['flame','ไขมันที่ควรจำกัด','ของทอด ไขมันทรานส์ ไขมันอิ่มตัวสูง กินบ่อยไม่ดีต่อหลอดเลือด']]},
+{lay:'cards',tag:'วิตามินเพื่อผิว',icon:'sun',t:['วิตามินสามตัว','ผิวขอบคุณ'],sub:'จำง่ายๆ ว่า A C E',
+ items:[['sun','วิตามินเอ','แครอท ฟักทอง ตับ ช่วยการสร้างเซลล์ผิวใหม่ และดูแลสายตา'],
+        ['star','วิตามินซี','ฝรั่ง ส้ม มะละกอ จำเป็นต่อการสร้างคอลลาเจน และต้านอนุมูลอิสระ'],
+        ['shield','วิตามินอี','ถั่ว เมล็ดทานตะวัน ช่วยปกป้องเซลล์ผิวจากความเสียหาย']]},
+{lay:'cards',tag:'แร่ธาตุ',icon:'shield',t:['แร่ธาตุเล็กๆ','พลังใหญ่'],sub:'ผม เล็บ และผิว เกี่ยวข้องกับแร่ธาตุเหล่านี้',
+ items:[['shield','สังกะสี','หอยนางรม เนื้อสัตว์ เมล็ดฟักทอง ช่วยสมานแผลและสุขภาพผิว'],
+        ['drop','ธาตุเหล็ก','เนื้อแดง ตับ ผักใบเขียวเข้ม ถ้าขาดอาจซีด เพลีย ผมร่วงได้'],
+        ['sparkles','ซีลีเนียม','ไข่ อาหารทะเล ถั่วบราซิล ช่วยปกป้องเซลล์จากอนุมูลอิสระ']]},
+{lay:'rows',tag:'น้ำ',icon:'drop',t:['น้ำเปล่า','ตัวช่วยที่ถูกที่สุด'],sub:'ร่างกายคนเราเป็นน้ำมากกว่าครึ่ง',
+ items:[['drop','ดื่มให้พอ','โดยทั่วไปประมาณ 6-8 แก้วต่อวัน มากขึ้นถ้าเหงื่อออกเยอะ'],
+        ['sun','สังเกตสีปัสสาวะ','สีเหลืองอ่อนแปลว่าน้ำพอ ถ้าเข้มมากควรดื่มเพิ่ม'],
+        ['cup','ระวังน้ำหวาน','ชา กาแฟ น้ำอัดลมที่เติมน้ำตาล ไม่ใช่ตัวแทนน้ำเปล่า']]},
+{lay:'cards',tag:'สารต้านอนุมูลอิสระ',icon:'apple',t:['กินผักผลไม้','ให้ได้หลายสี'],sub:'แต่ละสีมีสารพฤกษเคมีที่ไม่เหมือนกัน',
+ items:[['apple','สีแดง-ส้ม','มะเขือเทศ แครอท มะละกอ มีไลโคปีนและเบต้าแคโรทีน'],
+        ['leaf','สีเขียว','ผักใบเขียว บรอกโคลี มีลูทีน โฟเลต และวิตามินเค'],
+        ['star','สีม่วง-น้ำเงิน','บลูเบอร์รี่ กะหล่ำปลีม่วง มันม่วง มีแอนโทไซยานิน']]},
+{lay:'rows',tag:'ผิวสวย',icon:'sparkles',t:['เมนูบำรุงผิว','ที่หาได้ในโรงอาหาร'],sub:'ไม่ต้องของแพง แค่เลือกให้เป็น',
+ items:[['utensils','ปลานึ่ง/ย่าง + ผักลวก','ได้ทั้งโอเมก้า 3 โปรตีน และวิตามินจากผักหลายชนิด'],
+        ['apple','ผลไม้สดหลังมื้ออาหาร','ฝรั่ง ส้ม มะละกอ ให้วิตามินซีและใยอาหาร'],
+        ['heart','ไข่ต้ม + ถั่ว','ของว่างโปรตีนสูง ราคาประหยัด พกง่าย']]},
+{lay:'cards',tag:'ผมและเล็บ',icon:'smile',t:['ผมแข็งแรง','เล็บสวย'],sub:'ผมและเล็บสร้างจากโปรตีนที่ชื่อว่าเคราติน',
+ items:[['shield','โปรตีนให้พอ','ถ้ากินโปรตีนน้อยเกินไป ผมอาจบางและเล็บเปราะได้'],
+        ['drop','ธาตุเหล็กและสังกะสี','ช่วยลดปัญหาผมร่วงที่มาจากการขาดสารอาหาร'],
+        ['star','ไบโอติน (B7)','พบในไข่แดง ถั่ว อาหารปกติก็ได้พอ ไม่ต้องพึ่งอาหารเสริม']]},
+{lay:'rows',tag:'ควรลด',icon:'flame',t:['ตัวการที่ทำให้','สุขภาพเสีย'],sub:'ไม่ต้องห้ามเด็ดขาด แค่อย่าให้บ่อยเกินไป',
+ items:[['cup','น้ำตาลเกินพอดี','แนะนำไม่เกิน 6 ช้อนชาต่อวัน ชานมไข่มุกแก้วเดียวก็อาจเกินแล้ว'],
+        ['flame','ของทอด ของมัน','กินบ่อยเสี่ยงน้ำหนักเกินและไขมันในเลือดสูง'],
+        ['x','อาหารแปรรูป','ไส้กรอก บะหมี่กึ่งสำเร็จรูป โซเดียมสูง กินเป็นบางครั้งพอ']]},
+{lay:'plate',tag:'จัดจานสุขภาพ',icon:'utensils',t:['จัดจานง่ายๆ','แบบ 2 : 1 : 1'],sub:'มองจานเป็นสี่ส่วน แล้วเติมให้ครบ',
+ items:[['leaf','ผักและผลไม้ ครึ่งจาน','ได้ใยอาหาร วิตามิน และแร่ธาตุหลากหลาย','#C89B6D'],
+        ['shield','โปรตีน หนึ่งในสี่','ปลา ไข่ เต้าหู้ เนื้อสัตว์ไม่ติดมัน','#40362F'],
+        ['layers','ข้าว-แป้ง หนึ่งในสี่','เลือกข้าวกล้องหรือธัญพืชไม่ขัดสีบ่อยๆ','#8A6A4B']]},
+{lay:'cards',tag:'นักศึกษาสายประหยัด',icon:'star',t:['เมนูประหยัด','ได้สุขภาพด้วย'],sub:'งบจำกัดก็กินดีได้',
+ items:[['utensils','ข้าว + ไข่ต้ม + ผักลวก','ถูก ทำง่าย ใช้หม้อใบเล็กๆ ที่หอก็พอ'],
+        ['star','ปลาทูและเต้าหู้','โปรตีนราคาย่อมเยา ปลาทูยังมีโอเมก้า 3 ด้วย'],
+        ['apple','ผลไม้ตามฤดูกาล','ราคาถูกกว่า สดกว่า และอร่อยกว่าด้วย']]},
+{lay:'rows',tag:'ตำนานหรือความจริง',icon:'x',t:['เชื่อไหม?','ไม่จริงทั้งสามข้อ'],sub:'มาเช็กกันว่าความเชื่อเรื่องอาหารความงามอันไหนไม่จริง',
+ items:[['x','“ดีท็อกซ์ช่วยล้างพิษ”','ไม่จริง! ตับและไตทำหน้าที่ขับของเสียอยู่แล้ว'],
+        ['x','“กินน้อยๆ แล้วจะสวย”','ไม่จริง! อดอาหารทำให้ขาดสารอาหาร ผมร่วง ผิวหมอง'],
+        ['x','“อาหารเสริมแทนอาหารจริงได้”','ไม่จริง! อาหารจริงให้สารอาหารครบกว่า อาหารเสริมเป็นแค่ตัวช่วย']]},
+{lay:'rows',tag:'ลองทำดู',icon:'target',t:['ชาเลนจ์ 7 วัน','เริ่มได้เลยวันนี้'],sub:'เปลี่ยนแค่นิดเดียว แต่ทำให้ต่อเนื่อง',
+ items:[['sun','กินมื้อเช้าทุกวัน','มีโปรตีนกับผลไม้อย่างน้อยอย่างละหนึ่ง เช่น ไข่ต้มกับกล้วย'],
+        ['drop','เปลี่ยนน้ำหวาน 1 แก้วเป็นน้ำเปล่า','ทำให้ได้ทุกวัน แล้วค่อยๆ เพิ่มจำนวนแก้วขึ้น'],
+        ['leaf','ผักผลไม้ให้ได้ 3 สี','จดสีที่กินลงในโน้ตมือถือ เหมือนเล่นเกมเก็บสี']]},
+{lay:'cards',tag:'สรุป',icon:'smile',t:['สรุปแล้ว','จำแค่ 3 ข้อ'],sub:'ขอบคุณที่ตั้งใจฟังนะคะ มีคำถามอะไรถามได้เลย!',
+ foot:'ข้อมูลเพื่อความรู้ทั่วไป ไม่ใช่คำแนะนำทางการแพทย์ · อ.นพมาศ ร่มเกตุ',
+ items:[['layers','จัดจาน 2 : 1 : 1','ผักผลไม้ครึ่งจาน โปรตีนหนึ่งในสี่ ข้าว-แป้งหนึ่งในสี่'],
+        ['drop','น้ำเปล่ามาก่อน','ลดน้ำหวาน ลดของทอด ผิวและสุขภาพจะขอบคุณ'],
+        ['heart','สม่ำเสมอ สำคัญกว่าสมบูรณ์แบบ','เปลี่ยนทีละนิดและทำต่อเนื่อง เดี๋ยวผลก็ตามมาเอง']]}
+];
+
+/* ---------- สร้างสไลด์ ---------- */
+const TOTAL=D.length, pad=n=>String(n).padStart(2,'0');
+const SH=['d','m','l'];
+const sh=(k,i)=>SH[(k+i)%3];
+const title=t=>`${t[0]} <span class="grad">${t[1]}</span>`;
+const foot=(s,i)=>`<div class="brand">${s.foot||BRAND}</div><div class="pg">${pad(i+1)} <span>/ ${TOTAL}</span></div>`;
+
+function plateSVG(){
+  // 3 ส่วน: ผักผลไม้ 50, โปรตีน 25, ข้าว-แป้ง 25 (เว้นช่องไฟขาว)
+  const seg=(len,off,c)=>`<circle cx="21" cy="21" r="15.9155" fill="none" stroke="${c}" stroke-width="9" stroke-dasharray="${len-1} ${100-len+1}" stroke-dashoffset="${-off}" transform="rotate(-90 21 21)"/>`;
+  return `<svg class="plate" viewBox="0 0 42 42" role="img" aria-label="จานสุขภาพ ผักผลไม้ครึ่งจาน โปรตีนหนึ่งในสี่ ข้าวแป้งหนึ่งในสี่">
+  <circle cx="21" cy="21" r="20" fill="#fff" stroke="#EADFD2" stroke-width=".5"/>
+  ${seg(50,0,'#C89B6D')}${seg(25,50,'#40362F')}${seg(25,75,'#8A6A4B')}
+  <circle cx="21" cy="21" r="9" fill="#fff"/>
+  <text x="21" y="22.4" text-anchor="middle" font-size="3.4" font-weight="800" fill="#40362F" font-family="Noto Sans Thai,sans-serif">2 : 1 : 1</text></svg>`;
+}
+
+function cover(s,i){
+  return `<section class="slide cover">
+  <div class="tag rise" style="--i:0">${s.tag}</div>
+  <div>
+    <h1 class="rise" style="--i:1">อาหารเพื่อ<br><span class="grad">สุขภาพและความงาม</span></h1>
+    <p class="lead rise" style="--i:2">กินให้ถูก ร่างกายดี ผิวพรรณก็ดีตามมา</p>
+    <div class="who rise" style="--i:3">${ic('user')}<div><small>นำเสนอโดย</small><b>อาจารย์นพมาศ ร่มเกตุ</b></div></div>
+    <span class="chip rise" style="--i:4">สำหรับนักศึกษาปริญญาตรีชั้นปีที่ 1</span>
+  </div>
+  <div class="art rise" style="--i:2">
+    <div class="ring"></div>
+    ${ic('leaf','','big')}${ic('apple','','s1')}${ic('sparkles','','s2')}${ic('drop','','s3')}${ic('heart','','s4')}
+  </div>
+  ${foot(s,i)}</section>`;
+}
+
+function cards(s,i){
+  return `<section class="slide">
+  <div class="tag rise" style="--i:0">${s.tag}</div>
+  <header class="hd rise" style="--i:1"><div><h2>${title(s.t)}</h2><p class="sub">${s.sub}</p></div>${ic(s.icon)}</header>
+  <div class="cards">${s.items.map((it,k)=>`
+    <article class="card ${sh(k,i)} rise" style="--i:${k+2}">
+      <span class="n">${pad(k+1)}</span>${ic(it[0])}<h3>${it[1]}</h3><p>${it[2]}</p>
+    </article>`).join('')}</div>
+  ${foot(s,i)}</section>`;
+}
+
+function rows(s,i,plate){
+  const visual=plate?plateSVG():ic(s.icon);
+  return `<section class="slide">
+  <div class="tag rise" style="--i:0">${s.tag}</div>
+  <div class="rl">
+    <div class="left">
+      <div class="rise" style="--i:1"><h2>${title(s.t)}</h2><p class="sub">${s.sub}</p></div>
+      <div class="panel rise" style="--i:2">${visual}</div>
+    </div>
+    <div class="right">${s.items.map((it,k)=>`
+      <article class="row ${plate?'l':sh(k,i)} rise" style="--i:${k+2}">
+        <span class="n">${pad(k+1)}</span>${ic(it[0],it[3]?`--cc:${it[3]}`:'')}
+        <div><h3>${it[1]}</h3><p>${it[2]}</p></div>
+      </article>`).join('')}</div>
+  </div>
+  ${foot(s,i)}</section>`;
+}
+
+const stage=document.getElementById('stage');
+stage.innerHTML=D.map((s,i)=>s.lay==='cover'?cover(s,i):s.lay==='cards'?cards(s,i):rows(s,i,s.lay==='plate')).join('');
+const S=[...stage.querySelectorAll('.slide')];
+
+/* ---------- การนำทาง ---------- */
+const bar=document.getElementById('bar'),cnt=document.getElementById('cnt'),prev=document.getElementById('prev'),next=document.getElementById('next');
+let cur=0;
+function go(n,push=true){
+  n=Math.max(0,Math.min(TOTAL-1,n));
+  S[cur].classList.remove('active');cur=n;S[cur].classList.add('active');
+  cnt.textContent=`${cur+1} / ${TOTAL}`;
+  bar.style.width=((cur+1)/TOTAL*100)+'%';
+  prev.disabled=cur===0;next.disabled=cur===TOTAL-1;
+  if(push)try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>{
+  if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();
+};
+addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();go(cur+1)}
+  else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home')go(0);else if(e.key==='End')go(TOTAL-1);
+  else if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let tx=null;
+addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));tx=null});
+const h=parseInt(location.hash.slice(1),10);
+go(isNaN(h)?0:h-1,false);
+</script>
+</body>
+</html>
